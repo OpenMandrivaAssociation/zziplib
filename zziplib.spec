@@ -19,6 +19,7 @@ BuildRequires:	python >= 2.3
 BuildRequires:	pkgconfig
 BuildRequires:	multiarch-utils >= 1.0.3
 BuildRequires:	zip
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 zziplib provides read access to zipped files in a zip-archive,
