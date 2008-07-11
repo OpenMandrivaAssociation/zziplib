@@ -4,7 +4,7 @@
 Summary:	ZZipLib - libZ-based ZIP-access Library
 Name:		zziplib
 Version:	0.13.49
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
@@ -78,7 +78,7 @@ make
 make check
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %makeinstall_std 
 
@@ -86,7 +86,7 @@ make check
 %multiarch_includes %{buildroot}%{_includedir}/zzip/_msvc.h
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %{finalname} -p /sbin/ldconfig
