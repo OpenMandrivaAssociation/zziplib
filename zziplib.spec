@@ -3,7 +3,7 @@
 
 Summary:	ZZipLib - libZ-based ZIP-access Library
 Name:		zziplib
-Version:	0.13.58
+Version:	0.13.59
 Release:	%mkrel 1
 License:	LGPL
 Group:		System/Libraries
