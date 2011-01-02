@@ -3,7 +3,7 @@
 
 Summary:	ZZipLib - libZ-based ZIP-access Library
 Name:		zziplib
-Version:	0.13.59
+Version:	0.13.60
 Release:	%mkrel 1
 License:	LGPL
 Group:		System/Libraries
@@ -12,7 +12,7 @@ Source0:	http://prdownloads.sourceforge.net/zziplib/%{name}-%{version}.tar.bz2
 Obsoletes:	%{name}
 Provides:	%{name} %{name} = %{version}
 BuildRequires:	autoconf2.5 >= 2.54
-BuildRequires:	automake1.7
+BuildRequires:	automake
 BuildRequires:	zlib-devel >= 1.1.4
 # OE: python and pkgconfig is required for making the docs
 BuildRequires:	python >= 2.3
