@@ -105,6 +105,7 @@ rm -rf %{buildroot}
 %dir %{multiarch_includedir}/zzip
 %multiarch %{multiarch_includedir}/zzip/_config.h
 %multiarch %{multiarch_includedir}/zzip/_msvc.h
+%{_includedir}/*.h
 %dir %{_includedir}/zzip
 %{_includedir}/zzip/*.h
 %{_libdir}/pkgconfig/*.pc
