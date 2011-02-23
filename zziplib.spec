@@ -112,9 +112,11 @@ rm -rf %{buildroot}
 %{_libdir}/libzzip*.la
 %{_libdir}/libzzip*.so
 %{_libdir}/libzzip*.a
+%dir %{multiarch_includedir}/zzip
 %multiarch %{multiarch_includedir}/zzip/_config.h
 %multiarch %{multiarch_includedir}/zzip/_msvc.h
-%{_includedir}/*
+%dir %{_includedir}/zzip
+%{_includedir}/zzip/*.h
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 %{_mandir}/man3/*
