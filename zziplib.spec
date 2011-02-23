@@ -71,10 +71,8 @@ there are test binaries to hint usage of the library in user programs.
 find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
 
 %build
-
 %configure2_5x
-
-make
+%make
 
 %check
 make check
