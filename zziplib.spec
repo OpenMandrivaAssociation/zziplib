@@ -90,14 +90,6 @@ rm -rf %{buildroot}
 %clean
 rm -rf %{buildroot}
 
-%if %mdkversion < 200900
-%post -n %{finalname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{finalname} -p /sbin/ldconfig
-%endif
-
 %files -n %{libname}
 %defattr(-,root,root)
 %doc ChangeLog README docs/COPYING*
