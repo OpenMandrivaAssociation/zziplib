@@ -1,10 +1,10 @@
-%define	major 0
-%define finalname %{name}%{major}
-
 Summary:	ZZipLib - libZ-based ZIP-access Library
 Name:		zziplib
+%define	major	0
+%define	libname	%mklibname %{name} %{major}
+%define	devname	%mklibname -d %{name}
 Version:	0.13.60
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
@@ -31,13 +31,14 @@ zip file - as it is sometimes used with gamedata or script repositories.
 The library itself is fully multithreaded, and it is namespace clean
 using the zzip_ prefix for its exports and declarations.
 
-%package -n     %{finalname}
+%package -n     %{libname}
 Summary:	ZZipLib - libZ-based ZIP-access Library
 Group:		System/Libraries
 Obsoletes:	%{name}
 Provides:	%{name}
+%rename		zziplib0
 
-%description -n	%{finalname}
+%description -n	%{libname}
 zziplib provides read access to zipped files in a zip-archive,
 using compression based solely on free algorithms provided by zlib.
 zziplib provides an additional API to transparently access files
@@ -47,15 +48,16 @@ zip file - as it is sometimes used with gamedata or script repositories.
 The library itself is fully multithreaded, and it is namespace clean
 using the zzip_ prefix for its exports and declarations.
 
-%package -n     %{finalname}-devel
+%package -n     %{devname}
 Summary:	ZZipLib - Development Files
 Group:		Development/Other
+%rename		zziplib0-devel
 Obsoletes:	%{name}-devel
 Provides:	%{name}-devel = %{version}
-Requires:	%{finalname} = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Requires:	pkgconfig
 
-%description -n	 %{finalname}-devel
+%description -n	%{devname}
 zziplib provides read access to zipped files in a zip-archive,
 using compression based solely on free algorithms provided by zlib.
 these are the header files needed to develop programs using zziplib.
@@ -96,12 +98,12 @@ rm -rf %{buildroot}
 %postun -n %{finalname} -p /sbin/ldconfig
 %endif
 
-%files -n %{finalname}
+%files -n %{libname}
 %defattr(-,root,root)
 %doc ChangeLog README docs/COPYING*
 %{_libdir}/libzzip*-*.so.*
 
-%files -n %{finalname}-devel
+%files -n %{devname}
 %defattr(-,root,root)
 %doc docs/README* docs/*.html ChangeLog README TODO
 %{_bindir}/unzzip*
