@@ -9,9 +9,8 @@ License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
 Source0:	http://prdownloads.sourceforge.net/zziplib/%{name}-%{version}.tar.bz2
-Obsoletes:	%{name}
-Provides:	%{name} %{name} = %{version}
-BuildRequires:	autoconf2.5 >= 2.54
+Patch0:		zziplib-0.13.6-gcc46.patch
+BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	zlib-devel >= 1.1.4
 # OE: python and pkgconfig is required for making the docs
@@ -64,13 +63,14 @@ these are the header files needed to develop programs using zziplib.
 there are test binaries to hint usage of the library in user programs.
 
 %prep
-
 %setup -q
+%patch0 -p0
 
 # perl path fix
 find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
 
 %build
+autoreconf -fi
 %configure2_5x
 %make
 
@@ -83,6 +83,7 @@ rm -rf %{buildroot}
 %makeinstall_std
 
 %multiarch_includes %{buildroot}%{_includedir}/zzip/_config.h
+
 %multiarch_includes %{buildroot}%{_includedir}/zzip/_msvc.h
 
 %clean
@@ -103,8 +104,8 @@ rm -rf %{buildroot}
 %{_libdir}/libzzip*.so
 %{_libdir}/libzzip*.a
 %dir %{multiarch_includedir}/zzip
-%multiarch %{multiarch_includedir}/zzip/_config.h
-%multiarch %{multiarch_includedir}/zzip/_msvc.h
+%{multiarch_includedir}/zzip/_config.h
+%{multiarch_includedir}/zzip/_msvc.h
 %{_includedir}/*.h
 %dir %{_includedir}/zzip
 %{_includedir}/zzip/*.h
