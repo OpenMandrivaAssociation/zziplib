@@ -1,0 +1,15 @@
+--- configure.ac.gcc	2011-05-07 07:56:22.792431500 +0200
++++ configure.ac	2011-05-07 07:59:31.622266741 +0200
+@@ -292,10 +292,10 @@
+ # ---------------------------------------------------------------
+ AC_MSG_CHECKING([link options])
+ ZZIPLIB_LDFLAGS=""
+-test ".$can_build_shared" != ".no" && ZZIPLIB_LDFLAGS="--export-dynamic"
++test ".$can_build_shared" != ".no" && ZZIPLIB_LDFLAGS="-Wl,--export-dynamic"
+ RESOLVES=" # "
+ case "$host_os" in mingw*)
+-    ZZIPLIB_LDFLAGS="-no-undefined -export-all-symbols -mconsole"
++    ZZIPLIB_LDFLAGS="-Wl,-no-undefined -WL,-export-all-symbols -WL,-mconsole"
+     RESOLVES=' '
+ ;; esac
+ AC_MSG_RESULT([$ZZIPLIB_LDFLAGS $RESOLVES])
