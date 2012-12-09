@@ -4,7 +4,7 @@ Name:		zziplib
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
 Version:	0.13.60
-Release:	%mkrel 3
+Release:	%mkrel 5
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
@@ -100,7 +100,6 @@ rm -rf %{buildroot}
 %{_bindir}/unzzip*
 %{_bindir}/zz*
 %{_bindir}/unzip-mem
-%{_libdir}/libzzip*.la
 %{_libdir}/libzzip*.so
 %{_libdir}/libzzip*.a
 %dir %{multiarch_includedir}/zzip
@@ -112,3 +111,9 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 %{_mandir}/man3/*
+
+
+%changelog
+* Sat May 07 2011 Funda Wang <fwang@mandriva.org> 0.13.60-3mdv2011.0
++ Revision: 672104
+- fix build with gcc 4.6
