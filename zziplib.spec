@@ -18,7 +18,6 @@ BuildRequires:	python >= 2.3
 BuildRequires:	pkgconfig
 BuildRequires:	multiarch-utils >= 1.0.3
 BuildRequires:	zip
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 zziplib provides read access to zipped files in a zip-archive,
@@ -70,6 +69,7 @@ there are test binaries to hint usage of the library in user programs.
 find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
 
 %build
+%setup_compile_flags
 autoreconf -fi
 %configure2_5x
 %make
@@ -78,24 +78,17 @@ autoreconf -fi
 make check
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 %multiarch_includes %{buildroot}%{_includedir}/zzip/_config.h
 
 %multiarch_includes %{buildroot}%{_includedir}/zzip/_msvc.h
 
-%clean
-rm -rf %{buildroot}
-
 %files -n %{libname}
-%defattr(-,root,root)
 %doc ChangeLog README docs/COPYING*
 %{_libdir}/libzzip*-*.so.*
 
 %files -n %{devname}
-%defattr(-,root,root)
 %doc docs/README* docs/*.html ChangeLog README TODO
 %{_bindir}/unzzip*
 %{_bindir}/zz*
@@ -111,9 +104,3 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 %{_mandir}/man3/*
-
-
-%changelog
-* Sat May 07 2011 Funda Wang <fwang@mandriva.org> 0.13.60-3mdv2011.0
-+ Revision: 672104
-- fix build with gcc 4.6
