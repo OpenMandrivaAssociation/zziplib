@@ -94,7 +94,6 @@ make check
 %{_bindir}/zz*
 %{_bindir}/unzip-mem
 %{_libdir}/libzzip*.so
-%{_libdir}/libzzip*.a
 %dir %{multiarch_includedir}/zzip
 %{multiarch_includedir}/zzip/_config.h
 %{multiarch_includedir}/zzip/_msvc.h
