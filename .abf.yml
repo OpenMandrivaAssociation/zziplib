@@ -1,2 +1,4 @@
+removed_sources:
+  zziplib-0.13.60.tar.bz2: 821ff9a7984ddccb6734e4a753e401e93c7d47ee
 sources:
-  "zziplib-0.13.60.tar.bz2": 821ff9a7984ddccb6734e4a753e401e93c7d47ee
+  zziplib-0.13.62.tar.bz2: cf8b642abd9db618324a1b98cc71492a007cd687

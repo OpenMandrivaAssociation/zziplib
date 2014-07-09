@@ -3,13 +3,13 @@ Name:		zziplib
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
-Version:	0.13.60
-Release:	10
+Version:	0.13.62
+Release:	1
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
 Source0:	http://prdownloads.sourceforge.net/zziplib/%{name}-%{version}.tar.bz2
-Patch0:		zziplib-0.13.6-gcc46.patch
+#Patch0:		zziplib-0.13.6-gcc46.patch
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	zlib-devel >= 1.1.4
@@ -63,7 +63,7 @@ there are test binaries to hint usage of the library in user programs.
 
 %prep
 %setup -q
-%patch0 -p0
+#% patch0 -p0
 
 # perl path fix
 find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
@@ -71,7 +71,8 @@ find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
 %build
 %setup_compile_flags
 autoreconf -fi
-%configure2_5x
+export PYTHON=%{_bindir}/python2
+%configure
 %make
 
 %check
