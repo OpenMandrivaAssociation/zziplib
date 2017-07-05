@@ -13,6 +13,8 @@ Source0:	https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	zlib-devel >= 1.1.4
+BuildRequires:	xmlto
+BuildRequires:	docbook-dtds
 # OE: python and pkgconfig is required for making the docs
 BuildRequires:	python >= 2.3
 BuildRequires:	pkgconfig
