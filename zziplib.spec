@@ -1,3 +1,5 @@
+%bcond_with run_tests
+
 Summary:	ZZipLib - libZ-based ZIP-access Library
 Name:		zziplib
 %define	major	0
@@ -75,9 +77,11 @@ export PYTHON=%{_bindir}/python2
 %configure
 %make
 
+%if %{with run_tests}
 %check
 export PYTHON=%{_bindir}/python2
 make check
+%endif
 
 %install
 %makeinstall_std
