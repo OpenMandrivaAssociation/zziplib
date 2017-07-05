@@ -3,12 +3,12 @@ Name:		zziplib
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
-Version:	0.13.62
-Release:	4
+Version:	0.13.67
+Release:	1
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
-Source0:	http://prdownloads.sourceforge.net/zziplib/%{name}-%{version}.tar.bz2
+Source0:	https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
 #Patch0:		zziplib-0.13.6-gcc46.patch
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
@@ -16,7 +16,6 @@ BuildRequires:	zlib-devel >= 1.1.4
 # OE: python and pkgconfig is required for making the docs
 BuildRequires:	python >= 2.3
 BuildRequires:	pkgconfig
-BuildRequires:	multiarch-utils >= 1.0.3
 BuildRequires:	zip
 
 %description
@@ -63,7 +62,6 @@ there are test binaries to hint usage of the library in user programs.
 
 %prep
 %setup -q
-#% patch0 -p0
 
 # perl path fix
 find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
@@ -76,14 +74,11 @@ export PYTHON=%{_bindir}/python2
 %make
 
 %check
+export PYTHON=%{_bindir}/python2
 make check
 
 %install
 %makeinstall_std
-
-%multiarch_includes %{buildroot}%{_includedir}/zzip/_config.h
-
-%multiarch_includes %{buildroot}%{_includedir}/zzip/_msvc.h
 
 %files -n %{libname}
 %doc ChangeLog README docs/COPYING*
@@ -95,9 +90,6 @@ make check
 %{_bindir}/zz*
 %{_bindir}/unzip-mem
 %{_libdir}/libzzip*.so
-%dir %{multiarch_includedir}/zzip
-%{multiarch_includedir}/zzip/_config.h
-%{multiarch_includedir}/zzip/_msvc.h
 %{_includedir}/*.h
 %dir %{_includedir}/zzip
 %{_includedir}/zzip/*.h
