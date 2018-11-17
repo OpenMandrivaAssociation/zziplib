@@ -14,6 +14,7 @@ Source0:	https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
 #Patch0:		zziplib-0.13.6-gcc46.patch
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
+BuildRequires:	python2
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRequires:	xmlto
 BuildRequires:	docbook-dtds
