@@ -5,8 +5,8 @@ Name:		zziplib
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
-Version:	0.13.67
-Release:	3
+Version:	0.13.69
+Release:	1
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
