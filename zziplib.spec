@@ -5,7 +5,7 @@ Name:		zziplib
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
-Version:	0.13.69
+Version:	0.13.71
 Release:	1
 License:	LGPL
 Group:		System/Libraries
@@ -74,13 +74,13 @@ find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
 %build
 %setup_compile_flags
 autoreconf -fi
-export PYTHON=%{_bindir}/python2
+export PYTHON=%{_bindir}/python3
 %configure
 %make
 
 %if %{with run_tests}
 %check
-export PYTHON=%{_bindir}/python2
+export PYTHON=%{_bindir}/python3
 make check
 %endif
 
