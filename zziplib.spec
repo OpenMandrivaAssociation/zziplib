@@ -17,6 +17,7 @@ BuildRequires:	ninja
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRequires:	xmlto
 BuildRequires:	docbook-dtds
+BuildRequires:	pkgconfig(sdl2)
 # OE: python and pkgconfig is required for making the docs
 BuildRequires:	python >= 2.3
 BuildRequires:	pkgconfig
