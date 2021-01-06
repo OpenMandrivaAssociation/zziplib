@@ -2,19 +2,18 @@
 
 Summary:	ZZipLib - libZ-based ZIP-access Library
 Name:		zziplib
-%define	major	0
+%define	major	13
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
-Version:	0.13.71
+Version:	0.13.72
 Release:	1
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
 Source0:	https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
 #Patch0:		zziplib-0.13.6-gcc46.patch
-BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake
-BuildRequires:	python2
+BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRequires:	xmlto
 BuildRequires:	docbook-dtds
@@ -39,6 +38,17 @@ Group:		System/Libraries
 Obsoletes:	%{name}
 Provides:	%{name}
 %rename		zziplib0
+%if "%_lib" == "lib64"
+%define depsuffix ()(64bit)
+%else
+%define depsuffix %{nil}
+%endif
+%rename		%{_lib}zziplib0
+# For compatibility with previous autoconf-built package
+Provides:	libzzip-0.so.%{major}%{depsuffix}
+Provides:	libzzipfseeko-0.so.%{major}%{depsuffix}
+Provides:	libzzipmmapped-0.so.%{major}%{depsuffix}
+Provides:	libzzipwrap-0.so.%{major}%{depsuffix}
 
 %description -n	%{libname}
 zziplib provides read access to zipped files in a zip-archive,
@@ -67,39 +77,39 @@ there are test binaries to hint usage of the library in user programs.
 
 %prep
 %setup -q
-
-# perl path fix
-find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
+%cmake -G Ninja
 
 %build
-%setup_compile_flags
-autoreconf -fi
-export PYTHON=%{_bindir}/python3
-%configure
-%make
+%ninja_build -C build
 
 %if %{with run_tests}
 %check
-export PYTHON=%{_bindir}/python3
-make check
+%ninja_build -C build check
 %endif
 
 %install
-%makeinstall_std
+%ninja_install -C build
+# For compatibility with autoconf builds
+cd %{buildroot}%{_libdir}
+for i in *.so; do
+	ln -s $(readlink $i) $(echo $i |cut -d. -f1)-0.so.13
+	ln -s $i $(echo $i |cut -d. -f1)-0.so
+done
 
 %files -n %{libname}
 %doc ChangeLog README docs/COPYING*
-%{_libdir}/libzzip*-*.so.*
+%{_libdir}/libzzip*.so.*
 
 %files -n %{devname}
-%doc docs/README* docs/*.html ChangeLog README TODO
+%doc docs/README* ChangeLog README TODO
 %{_bindir}/unzzip*
 %{_bindir}/zz*
 %{_bindir}/unzip-mem
 %{_libdir}/libzzip*.so
 %{_includedir}/*.h
 %dir %{_includedir}/zzip
-%{_includedir}/zzip/*.h
+%{_includedir}/zzip
+%{_includedir}/SDL_rwops_zzip
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 %{_mandir}/man3/*
