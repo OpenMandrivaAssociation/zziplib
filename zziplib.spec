@@ -5,15 +5,14 @@ Name:		zziplib
 %define	major	13
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
-Version:	0.13.72
-Release:	2
+Version:	0.13.77
+Release:	1
 License:	LGPL
 Group:		System/Libraries
 URL:		http://zziplib.sf.net
 Source0:	https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
 #Patch0:		zziplib-0.13.6-gcc46.patch
-BuildRequires:	cmake
-BuildRequires:	ninja
+BuildSystem:	cmake
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRequires:	xmlto
 BuildRequires:	docbook-dtds
@@ -76,26 +75,19 @@ using compression based solely on free algorithms provided by zlib.
 these are the header files needed to develop programs using zziplib.
 there are test binaries to hint usage of the library in user programs.
 
-%prep
-%setup -q
-%cmake -G Ninja
-
-%build
-%ninja_build -C build
-
-%if %{with run_tests}
-%check
-%ninja_build -C build check
-%endif
-
-%install
-%ninja_install -C build
-# For compatibility with autoconf builds
+%install -a
+# For compatibility with autoconf builds (used in old OM as
+# well as current versions of some other distros)
 cd %{buildroot}%{_libdir}
 for i in *.so; do
 	ln -s $(readlink $i) $(echo $i |cut -d. -f1)-0.so.13
 	ln -s $i $(echo $i |cut -d. -f1)-0.so
 done
+
+%if %{with run_tests}
+%check
+%ninja_build -C build check
+%endif
 
 %files -n %{libname}
 %doc ChangeLog README docs/COPYING*
@@ -108,9 +100,9 @@ done
 %{_bindir}/unzip-mem
 %{_libdir}/libzzip*.so
 %{_includedir}/*.h
-%dir %{_includedir}/zzip
 %{_includedir}/zzip
 %{_includedir}/SDL_rwops_zzip
 %{_libdir}/pkgconfig/*.pc
+%{_libdir}/cmake/zziplib
 %{_datadir}/aclocal/*.m4
 %{_mandir}/man3/*
