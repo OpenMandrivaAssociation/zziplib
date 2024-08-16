@@ -5,7 +5,7 @@ Name:		zziplib
 %define	major	13
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname -d %{name}
-Version:	0.13.77
+Version:	0.13.78
 Release:	1
 License:	LGPL
 Group:		System/Libraries
