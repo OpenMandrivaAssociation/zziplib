@@ -9,7 +9,7 @@ Version:	0.13.78
 Release:	1
 License:	LGPL
 Group:		System/Libraries
-URL:		http://zziplib.sf.net
+URL:		https://zziplib.sf.net
 Source0:	https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
 #Patch0:		zziplib-0.13.6-gcc46.patch
 BuildSystem:	cmake
